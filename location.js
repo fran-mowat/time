@@ -47,6 +47,8 @@ const getTimeZone = (selectedLocation) => {
         timeZone = "America/New_York";
     } else if (selectedLocation === "Paris"){
         timeZone = "Europe/Paris";
+    } else if (selectedLocation === "Los Angeles"){
+        timeZone = "America/Los_Angeles";
     }
     return [timeZone, locale]; 
 };
