@@ -12,7 +12,7 @@ const getDateTime = () => {
     const currentMonth = months[current.getMonth()]; 
 
     const currentDay = current.getDate(); 
-    var ordinalIndicator; 
+    let ordinalIndicator; 
     if (currentDay == 1 || currentDay == 21 || currentDay == 31){
         ordinalIndicator = "st";
     } else if (currentDay == 2 || currentDay == 22){
@@ -26,7 +26,9 @@ const getDateTime = () => {
     const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const currentWeekday = weekdays[current.getDay()]; 
 
-    dateStore.innerHTML = `${currentWeekday} ${currentDay}${ordinalIndicator} ${currentMonth} ${currentYear}`;
+    const weekNumber = luxon.DateTime.now().weekNumber;
+
+    dateStore.innerHTML = `${currentWeekday} ${currentDay}${ordinalIndicator} ${currentMonth} ${currentYear}, week ${weekNumber}`;
 };
 
 const dateTimeUpdate = setInterval(getDateTime, 100);
