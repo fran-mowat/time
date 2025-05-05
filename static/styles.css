@@ -114,6 +114,7 @@ body{
 #content{
     width: min(495px, 80%);
     margin: auto;
+    height: 390px;
 }
 
 #flex-container{
