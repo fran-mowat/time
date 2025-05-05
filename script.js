@@ -9,7 +9,6 @@ const getLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            locationStore.innerHTML = `${latitude} ${longitude}`;
             getSunTimes(latitude, longitude);
             getCity(latitude, longitude);
         }, 
@@ -22,42 +21,31 @@ const getLocation = () => {
 };
 
 //retrieving sunrise and sunset times from https://sunrise-sunset.org/ API
-const getSunTimes = (latitude, longitude) => {
-    fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=today`)
-        .then(response => {
-            if (!response.ok){
-                console.log("Error fetching sunrise and sunset times");
-            } else {
-                return response.json()
-            }
-        })
-        .then(data => {
-            let sunriseTime = convertTime(data.results.sunrise); 
-            let sunsetTime = convertTime(data.results.sunset);
+const getSunTimes = async (latitude, longitude) => {
+    try{
+        const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=today`);
+        if (!response.ok) throw Error("Error fetching sunrise and sunset times");
+        const data = await response.json(); 
 
-            sunriseStore.innerHTML = `Sunrise: ${sunriseTime}`; 
-            sunsetStore.innerHTML = `Sunset: ${sunsetTime}`;
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        let sunriseTime = convertTime(data.results.sunrise); 
+        let sunsetTime = convertTime(data.results.sunset);
+
+        sunriseStore.innerHTML = `Sunrise: ${sunriseTime}`; 
+        sunsetStore.innerHTML = `Sunset: ${sunsetTime}`;
+    } catch (error){
+        console.log(error);
+    }
 };
 
-const getCity = (latitude, longitude) => {
-    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${API_KEY}`)
-    .then(response => {
-        if (!response.ok){
-            console.log("Error reverse geocoding coordinates");
-        } else {
-            return response.json(); 
-        }
-    })
-    .then(data => {
-        locationStore.innerHTML = data.results[0].components.city;
-    })
-    .catch(error => {
+const getCity = async (latitude, longitude) => {
+    try{
+        const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${API_KEY}`);
+        if (!response.ok) throw new Error("Error reverse geocoding coordinates");
+        const data = await response.json(); 
+        locationStore.innerHTML = `Time in ${data.results[0].components.city}:` || "";
+    } catch (error){
         console.log(error);
-    })
+    }
 };
 
 const convertTime = (time12h) => {
@@ -97,12 +85,12 @@ const getDateTime = () => {
     }
 
     const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    const currentWeekday = weekdays[current.getDay()]; 
+    const currentWeekday = weekdays[current.getDay() - 1]; 
 
     const weekNumber = luxon.DateTime.now().weekNumber;
 
     dateStore.innerHTML = `${currentWeekday} ${currentDay}${ordinalIndicator} ${currentMonth} ${currentYear}, week ${weekNumber}`;
 };
 
-const dateTimeUpdate = setInterval(getDateTime, 100);
+const dateTimeUpdate = setInterval(getDateTime, 500);
 getLocation();
