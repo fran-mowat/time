@@ -60,6 +60,7 @@ body{
     left: 0;
     background-color: var(--dark);
     color: var(--light);
+    display: none;
 }
 
 .dark-mode #menu{
@@ -70,7 +71,8 @@ body{
 #menu svg{
     stroke: var(--light);
     height: 40px;
-    padding: 5px;
+    padding: 25px;
+    cursor: pointer;
 }
 
 .dark-mode #menu svg{
