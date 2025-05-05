@@ -89,7 +89,7 @@ const getDateTime = () => {
 
     const weekNumber = luxon.DateTime.now().weekNumber;
 
-    dateStore.innerHTML = `${currentWeekday} ${currentDay}${ordinalIndicator} ${currentMonth} ${currentYear}, week ${weekNumber}`;
+    dateStore.innerHTML = `${currentWeekday} ${currentDay}<sup>${ordinalIndicator}</sup> ${currentMonth} ${currentYear}, week ${weekNumber}`;
 };
 
 const dateTimeUpdate = setInterval(getDateTime, 500);

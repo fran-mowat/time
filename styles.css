@@ -1,6 +1,15 @@
 :root{
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, 'monospace';
     font-size: 24px;
+    color: #181818;
+    background-color: #efefef;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 #content{
@@ -15,7 +24,14 @@
 }
 
 #time{
-    font-size: 70px;
+    font-size: 60px;
+    margin: 40px 0;
+}
+
+@media (min-width: 400px) {
+    #time{
+        font-size: 70px;
+    }
 }
 
 #date{
