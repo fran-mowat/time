@@ -25,17 +25,32 @@ body{
     margin: 0;
 }
 
-#toggle-container{
+#menu-container, #toggle-container{
     position: fixed;
     top: 10px;
-    right: 10px;
     padding: 10px;
     cursor: pointer;
 }
 
-#toggle-container svg{
+#menu-container{
+    left: 10px;
+}
+
+#toggle-container{
+    right: 10px;
+}
+
+#toggle-container svg, #menu-container svg{
     height: 40px;
     padding: 5px;
+}
+
+#menu-container svg{
+    stroke: var(--dark);
+}
+
+.dark-mode #menu-container svg{
+    stroke: var(--light);
 }
 
 #sun{
