@@ -43,7 +43,7 @@ const getCity = async (latitude, longitude) => {
         const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${API_KEY}`);
         if (!response.ok) throw new Error("Error reverse geocoding coordinates");
         const data = await response.json(); 
-        locationStore.innerHTML = `Time in ${data.results[0].components.city}:` || "";
+        locationStore.innerHTML = `Time in ${data.results[0].components.city}, ${data.results[0].components.country}:` || "";
     } catch (error){
         console.log(error);
     }
