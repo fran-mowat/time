@@ -1,6 +1,4 @@
 const locationStore = document.getElementById("location");
-const sunriseStore = document.getElementById("sunrise");
-const sunsetStore = document.getElementById("sunset");
 const timeStore = document.getElementById("time");
 const dateStore = document.getElementById("date");
 const weekStore = document.getElementById("week");
@@ -10,7 +8,6 @@ const getLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            getSunTimes(latitude, longitude);
             getCity(latitude, longitude);
         }, 
         (error) => {
@@ -18,23 +15,6 @@ const getLocation = () => {
         });
     } else {
         console.log("Geolocation not supported by browser.");
-    }
-};
-
-//retrieving sunrise and sunset times from https://sunrise-sunset.org/ API
-const getSunTimes = async (latitude, longitude) => {
-    try{
-        const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=today`);
-        if (!response.ok) throw Error("Error fetching sunrise and sunset times");
-        const data = await response.json(); 
-
-        let sunriseTime = convertTime(data.results.sunrise); 
-        let sunsetTime = convertTime(data.results.sunset);
-
-        sunriseStore.innerHTML = `Sunrise: ${sunriseTime}`; 
-        sunsetStore.innerHTML = `Sunset: ${sunsetTime}`;
-    } catch (error){
-        console.log(error);
     }
 };
 
@@ -94,5 +74,5 @@ const getDateTime = () => {
     weekStore.innerHTML = `week ${weekNumber}`;
 };
 
-const dateTimeUpdate = setInterval(getDateTime, 500);
 getLocation();
+const dateTimeUpdate = setInterval(getDateTime, 500);
