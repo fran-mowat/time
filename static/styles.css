@@ -4,14 +4,28 @@
 }
 
 :root{
+    --dark: #181818;
+    --light: #efefef;
+}
+
+html{
     font-family: 'FunnelDisplay', 'Courier New', Courier, 'monospace';
     font-size: 24px;
     letter-spacing: 1.3px;
-    color: #181818;
-    background-color: #efefef;
+    color: var(--dark);
+    background-color: var(--light);
+}
+
+.dark-mode{
+    color: var(--light);
+    background-color: var(--dark);
 }
 
 body{
+    margin: 0;
+}
+
+#content-container{
     display: flex;
     justify-content: center;
     align-items: center;
