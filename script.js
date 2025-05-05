@@ -10,7 +10,8 @@ const getLocation = () => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             locationStore.innerHTML = `${latitude} ${longitude}`;
-            getSunTimes(latitude, longitude)
+            getSunTimes(latitude, longitude);
+            getCity(latitude, longitude);
         }, 
         (error) => {
             console.log(`Error retrieving coordinates: ${error.code} ${error.message}`);
@@ -22,7 +23,6 @@ const getLocation = () => {
 
 //retrieving sunrise and sunset times from https://sunrise-sunset.org/ API
 const getSunTimes = (latitude, longitude) => {
-    console.log(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=today`);
     fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=today`)
         .then(response => {
             if (!response.ok){
@@ -43,6 +43,23 @@ const getSunTimes = (latitude, longitude) => {
         })
 };
 
+const getCity = (latitude, longitude) => {
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${API_KEY}`)
+    .then(response => {
+        if (!response.ok){
+            console.log("Error reverse geocoding coordinates");
+        } else {
+            return response.json(); 
+        }
+    })
+    .then(data => {
+        locationStore.innerHTML = data.results[0].components.city;
+    })
+    .catch(error => {
+        console.log(error);
+    })
+};
+
 const convertTime = (time12h) => {
     const [time, modifier] = time12h.split(" ");
     let [hours, minutes] = time.split(":");
@@ -54,7 +71,7 @@ const convertTime = (time12h) => {
 
     hours = hours.toString().padStart(2, "0");
 
-    return `${hours}:${minutes}`
+    return `${hours}:${minutes}`;
 }
 
 const getDateTime = () => {
