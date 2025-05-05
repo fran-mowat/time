@@ -1,4 +1,6 @@
 const locationStore = document.getElementById("location");
+const sunriseStore = document.getElementById("sunrise");
+const sunsetStore = document.getElementById("sunset");
 const timeStore = document.getElementById("time");
 const dateStore = document.getElementById("date");
 
@@ -8,7 +10,7 @@ const getLocation = () => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             locationStore.innerHTML = `${latitude} ${longitude}`;
-            console.log(`${latitude} ${longitude}`);
+            getSunTimes(latitude, longitude)
         }, 
         (error) => {
             console.log(`Error retrieving coordinates: ${error.code} ${error.message}`);
@@ -17,6 +19,43 @@ const getLocation = () => {
         console.log("Geolocation not supported by browser.");
     }
 };
+
+//retrieving sunrise and sunset times from https://sunrise-sunset.org/ API
+const getSunTimes = (latitude, longitude) => {
+    console.log(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=today`);
+    fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=today`)
+        .then(response => {
+            if (!response.ok){
+                console.log("Error fetching sunrise and sunset times");
+            } else {
+                return response.json()
+            }
+        })
+        .then(data => {
+            let sunriseTime = convertTime(data.results.sunrise); 
+            let sunsetTime = convertTime(data.results.sunset);
+
+            sunriseStore.innerHTML = `Sunrise: ${sunriseTime}`; 
+            sunsetStore.innerHTML = `Sunset: ${sunsetTime}`;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+};
+
+const convertTime = (time12h) => {
+    const [time, modifier] = time12h.split(" ");
+    let [hours, minutes] = time.split(":");
+    if (modifier === "PM" && hours != "12"){
+        hours = parseInt(hours, 10) + 12; 
+    } else if (modifier === "AM" && hours === "12"){
+        hours = "00";
+    }
+
+    hours = hours.toString().padStart(2, "0");
+
+    return `${hours}:${minutes}`
+}
 
 const getDateTime = () => {
     const current = new Date();
