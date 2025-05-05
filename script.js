@@ -1,5 +1,22 @@
+const locationStore = document.getElementById("location");
 const timeStore = document.getElementById("time");
 const dateStore = document.getElementById("date");
+
+const getLocation = () => {
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition((position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            locationStore.innerHTML = `${latitude} ${longitude}`;
+            console.log(`${latitude} ${longitude}`);
+        }, 
+        (error) => {
+            console.log(`Error retrieving coordinates: ${error.code} ${error.message}`);
+        });
+    } else {
+        console.log("Geolocation not supported by browser.");
+    }
+};
 
 const getDateTime = () => {
     const current = new Date();
@@ -32,3 +49,4 @@ const getDateTime = () => {
 };
 
 const dateTimeUpdate = setInterval(getDateTime, 100);
+getLocation();
