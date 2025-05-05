@@ -25,6 +25,31 @@ body{
     margin: 0;
 }
 
+#toggle-container{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#toggle-container svg{
+    height: 40px;
+    padding: 5px;
+}
+
+#sun{
+    display: none;
+}
+
+.dark-mode #sun{
+    display: block;
+}
+
+.dark-mode #moon{
+    display: none;
+}
+
 #content-container{
     display: flex;
     justify-content: center;

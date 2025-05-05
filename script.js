@@ -96,3 +96,9 @@ const getDateTime = () => {
 
 const dateTimeUpdate = setInterval(getDateTime, 500);
 getLocation();
+
+const themeToggle = document.getElementById("toggle-container");
+
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode")
+})
