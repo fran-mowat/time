@@ -62,19 +62,32 @@ body{
     color: var(--light);
 }
 
+.dark-mode #menu{
+    background-color: var(--light);
+    color: var(--dark);
+}
+
 #menu svg{
     stroke: var(--light);
     height: 40px;
     padding: 5px;
 }
 
+.dark-mode #menu svg{
+    stroke: var(--dark);
+}
+
 #menu .location-link{
-    padding: 12px 50px 12px 25px;
+    padding: 12px 100px 12px 35px;
     cursor: pointer;
 }
 
 #menu .location-link:hover{
     background-color: #272626;
+}
+
+.dark-mode #menu .location-link:hover{
+    background-color: #d8d8d8;
 }
 
 #sun{
