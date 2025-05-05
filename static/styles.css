@@ -19,7 +19,7 @@ body{
 }
 
 #content{
-    width: min(600px, 80%);
+    width: min(495px, 80%);
     margin: auto;
 }
 
@@ -42,5 +42,23 @@ body{
 }
 
 #date{
-    font-size: 35px;
+    font-size: 30px;
+    margin-bottom: 0;
+}
+
+#week{
+    font-size: 25px;
+    display: flex;
+    justify-content: end;
+    margin-top: 0;
+}
+
+@media (min-width: 550px) {
+    #date{
+        font-size: 35px;
+    }
+
+    #week{
+        font-size: 30px;
+    }
 }

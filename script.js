@@ -3,6 +3,7 @@ const sunriseStore = document.getElementById("sunrise");
 const sunsetStore = document.getElementById("sunset");
 const timeStore = document.getElementById("time");
 const dateStore = document.getElementById("date");
+const weekStore = document.getElementById("week");
 
 const getLocation = () => {
     if (navigator.geolocation){
@@ -89,7 +90,8 @@ const getDateTime = () => {
 
     const weekNumber = luxon.DateTime.now().weekNumber;
 
-    dateStore.innerHTML = `${currentWeekday} ${currentDay}<sup>${ordinalIndicator}</sup> ${currentMonth} ${currentYear}, week ${weekNumber}`;
+    dateStore.innerHTML = `${currentWeekday} ${currentDay}<sup>${ordinalIndicator}</sup> ${currentMonth} ${currentYear},`;
+    weekStore.innerHTML = `week ${weekNumber}`;
 };
 
 const dateTimeUpdate = setInterval(getDateTime, 500);
