@@ -53,6 +53,30 @@ body{
     stroke: var(--light);
 }
 
+#menu{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+#menu svg{
+    stroke: var(--light);
+    height: 40px;
+    padding: 5px;
+}
+
+#menu .location-link{
+    padding: 12px 50px 12px 25px;
+    cursor: pointer;
+}
+
+#menu .location-link:hover{
+    background-color: #272626;
+}
+
 #sun{
     display: none;
 }
