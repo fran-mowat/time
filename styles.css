@@ -1,3 +1,23 @@
 :root{
     font-family: 'Courier New', Courier, monospace;
+    font-size: 24px;
+}
+
+#content{
+    width: min(600px, 80%);
+    margin: auto;
+}
+
+#flex-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#time{
+    font-size: 70px;
+}
+
+#date{
+    font-size: 35px;
 }
