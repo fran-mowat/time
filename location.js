@@ -53,6 +53,8 @@ const getTimeZone = (selectedLocation) => {
         timeZone = "Europe/London";
     } else if (selectedLocation === "Beijing"){
         timeZone = "Asia/Shanghai";
+    } else if (selectedLocation === "Tokyo"){
+        timeZone = "Asia/Tokyo";
     }
     return [timeZone, locale]; 
 };
