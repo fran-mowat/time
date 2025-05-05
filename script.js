@@ -1,9 +1,32 @@
-const timeStore = document.getElementsByTagName("h1")[0];
+const timeStore = document.getElementById("time");
+const dateStore = document.getElementById("date");
 
-const getTime = () => {
+const getDateTime = () => {
     const current = new Date();
     const currentTime = current.toLocaleTimeString(); 
     timeStore.innerHTML = currentTime;
+
+    const currentYear = current.getFullYear(); 
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const currentMonth = months[current.getMonth()]; 
+
+    const currentDay = current.getDate(); 
+    var ordinalIndicator; 
+    if (currentDay == 1 || currentDay == 21 || currentDay == 31){
+        ordinalIndicator = "st";
+    } else if (currentDay == 2 || currentDay == 22){
+        ordinalIndicator = "nd";
+    } else if (currentDay == 3 || currentDay == 23){
+        ordinalIndicator = "rd"; 
+    } else {
+        ordinalIndicator = "th"; 
+    }
+
+    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const currentWeekday = weekdays[current.getDay()]; 
+
+    dateStore.innerHTML = `${currentWeekday} ${currentDay}${ordinalIndicator} ${currentMonth} ${currentYear}`;
 };
 
-const timeUpdate = setInterval(getTime, 100);
+const dateTimeUpdate = setInterval(getDateTime, 100);
