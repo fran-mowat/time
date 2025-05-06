@@ -1,47 +1,6 @@
-const locationStore = document.getElementById("location");
 const timeStore = document.getElementById("time");
 const dateStore = document.getElementById("date");
 const weekStore = document.getElementById("week");
-
-const getLocation = () => {
-    if (navigator.geolocation){
-        navigator.geolocation.getCurrentPosition((position) => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            getCity(latitude, longitude);
-        }, 
-        (error) => {
-            console.log(`Error retrieving coordinates: ${error.code} ${error.message}`);
-        });
-    } else {
-        console.log("Geolocation not supported by browser.");
-    }
-};
-
-const getCity = async (latitude, longitude) => {
-    try{
-        const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${API_KEY}`);
-        if (!response.ok) throw new Error("Error reverse geocoding coordinates");
-        const data = await response.json(); 
-        locationStore.innerHTML = `Time in ${data.results[0].components.city}, ${data.results[0].components.country}:` || "";
-    } catch (error){
-        console.log(error);
-    }
-};
-
-const convertTime = (time12h) => {
-    const [time, modifier] = time12h.split(" ");
-    let [hours, minutes] = time.split(":");
-    if (modifier === "PM" && hours != "12"){
-        hours = parseInt(hours, 10) + 12; 
-    } else if (modifier === "AM" && hours === "12"){
-        hours = "00";
-    }
-
-    hours = hours.toString().padStart(2, "0");
-
-    return `${hours}:${minutes}`;
-}
 
 const getDateTime = () => {
     const current = new Date();
@@ -74,5 +33,4 @@ const getDateTime = () => {
     weekStore.innerHTML = `week ${weekNumber}`;
 };
 
-getLocation();
 const dateTimeUpdate = setInterval(getDateTime, 500);
