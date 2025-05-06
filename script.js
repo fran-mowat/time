@@ -34,3 +34,21 @@ menuOptions.forEach((button) => {
         window.location.href = `${location}.html`;
     });
 });
+
+const timeContainer = document.getElementById("flex-container");
+
+const fullScreen = (e) => {
+    e.stopPropagation(); 
+    timeContainer.removeEventListener("click", fullScreen);
+    timeContainer.classList.add("full-screen");
+    document.body.addEventListener("click", exitFullScreen);
+};
+
+const exitFullScreen = (e) => {
+    e.stopPropagation(); 
+    document.body.removeEventListener("click", exitFullScreen);
+    timeContainer.classList.remove("full-screen");
+    timeContainer.addEventListener("click", fullScreen);
+};
+
+timeContainer.addEventListener("click", fullScreen);
