@@ -1,6 +1,6 @@
 @font-face {
-    font-family: FunnelDisplay;
-    src: url(./FunnelDisplay-Light.ttf);
+    font-family: FunnelSans;
+    src: url(./FunnelSans-VariableFont_wght.ttf);
 }
 
 :root{
@@ -9,8 +9,8 @@
 }
 
 html{
-    font-family: 'FunnelDisplay', 'Courier New', Courier, 'monospace';
-    font-size: 24px;
+    font-family: 'FunnelSans', 'Courier New', Courier, 'monospace';
+    font-size: 28px;
     letter-spacing: 1.3px;
     color: var(--dark);
     background-color: var(--light);
